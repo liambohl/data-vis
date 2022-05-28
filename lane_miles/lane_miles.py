@@ -239,7 +239,7 @@ def annotate(state, x_list, y_list):
 	# plt.text(x, y, state)
 	plt.annotate(state, (x, y))
 
-def plot():
+def plot_road_density_vs_pop_density():
 	plt.scatter(population_density, road_network_density, s=size, c=colors, alpha=.5)
 
 	# log-log regression
@@ -254,14 +254,41 @@ def plot():
 	plt.ylabel("road network density (lane miles per square mile)")
 	plt.legend()
 
-### on linear scale ###
-plot()
+def plot_road_intensity_vs_pop_density():
+	plt.scatter(population_density, lane_miles_per_person, s=size, c=colors, alpha=.5)
+
+	# log-log regression
+	log_regression = stats.linregress(np.log2(population_density), np.log2(lane_miles_per_person))
+	x_min = min(population_density)
+	x_max = max(population_density)
+	regression_x = np.arange(x_min, x_max, (x_max - x_min) / 100)
+	regression_y = 2 ** (log_regression.intercept + log_regression.slope * np.log2(regression_x))
+	plt.plot(regression_x, regression_y, 'r', alpha=.5, label='log-log regression, r^2 = {:0.2f}'.format(log_regression.rvalue ** 2))
+
+	plt.xlabel("population density (people per square mile)")
+	plt.ylabel("road intensity (lane miles per person)")
+	plt.legend()
+
+### road density on linear scale ###
+plot_road_density_vs_pop_density()
 for state in ["New Jersey", "Rhode Island", "Connecticut", "Alaska", "California", "Hawaii", "Maryland", "Massachusetts", "Ohio", "New York", "Texas", "Virginia"]:
 	annotate(state, population_density, road_network_density)
 plt.show()
 
-### on log scale ###
-plot()
+### road density on log scale ###
+plot_road_density_vs_pop_density()
+plt.xscale('log', base=2)
+plt.yscale('log', base=2)
+plt.show()
+
+### road intensity on linear scale ###
+plot_road_intensity_vs_pop_density()
+for state in ["North Dakota", "South Dakota", "Montana", "Wyoming", "California", "New York", "Massachusetts", "New Jersey"]:
+	annotate(state, population_density, lane_miles_per_person)
+plt.show()
+
+### road intensity on log scale ###
+plot_road_intensity_vs_pop_density()
 plt.xscale('log', base=2)
 plt.yscale('log', base=2)
 plt.show()

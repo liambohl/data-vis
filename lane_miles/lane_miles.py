@@ -11,7 +11,7 @@ state_names = np.array([
 	"Colorado",
 	"Connecticut",
 	"Delaware",
-	"District of Columbia",
+	# "District of Columbia",
 	"Florida",
 	"Georgia",
 	"Hawaii",
@@ -66,7 +66,7 @@ lane_miles = np.array([
 	185827,
 	45899,
 	14119,
-	3448,
+	# 3448,
 	276289,
 	273086,
 	9804,
@@ -121,7 +121,7 @@ population = np.array([
 	5812069,
 	3605944,
 	989948,
-	689545,
+	# 689545,
 	21781128,
 	10799566,
 	1455271,
@@ -176,7 +176,7 @@ land_area = np.array([
 	103641.89,
 	4842.36,
 	1948.54,
-	61.05,
+	# 61.05,
 	53624.76,
 	57513.49,
 	6422.63,
@@ -256,7 +256,7 @@ def plot():
 
 ### on linear scale ###
 plot()
-for state in ["New Jersey", "Rhode Island", "Connecticut", "Alaska", "California", "Hawaii", "Maryland", "Massachusetts", "Ohio", "New York", "Texas", "Virginia", "District of Columbia"]:
+for state in ["New Jersey", "Rhode Island", "Connecticut", "Alaska", "California", "Hawaii", "Maryland", "Massachusetts", "Ohio", "New York", "Texas", "Virginia"]:
 	annotate(state, population_density, road_network_density)
 plt.show()
 
